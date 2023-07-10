@@ -13,34 +13,38 @@ exports.addContactForm = (req, res, next) => {
 function addContactForm(objParam) {
     console.log(objParam);
 
+    return new Promise((resolve, issue) => {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'websupport@alupac.com',
+                pass: 'Alu@12345' // Replace with your email password
+            }
+        });
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'websupport@alupac.com',
-            pass: 'Alu@12345' // Replace with your email password
-        }
-    });
-
-    const mailOptions = {
-        from: 'ajay@spakcomm.com', // Replace with your email address
-        to: 'shiv@spakcomm.com, enquiry@alupac.com', // Replace with the recipient's email address
-        subject: 'Alupac Enquiry',
-        html: `
+        const mailOptions = {
+            from: 'ajay@spakcomm.com', // Replace with your email address
+            to: 'shiv@spakcomm.com, enquiry@alupac.com, ajay@spakcomm.com', // Replace with the recipient's email address
+            subject: 'Alupac Enquiry',
+            html: `
                 <b>Name:</b> ${objParam.uname}, <br />
                 <b>Email:</b> ${objParam.uemail}, <br />
                 <b>Location:</b> ${objParam.Location}, <br />
                 <b>Company:</b> ${objParam.companyname}, <br />
                 <b>Commment:</b> ${objParam.comment}, <br />
                  `
-    };
+        };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                issue(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                resolve(info.response);
+            }
+        });
     });
+
+
 
 };
