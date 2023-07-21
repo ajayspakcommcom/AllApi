@@ -23,8 +23,10 @@ app.use(cors({
 
 
 const alupacRoute = require('./routes/alupac');
+const aceTextTileRoute = require('./routes/acetexttile');
 
 app.use(alupacRoute);
+app.use(aceTextTileRoute);
 
 app.listen(process.env.PORT || 3333, () => {
     console.clear();
