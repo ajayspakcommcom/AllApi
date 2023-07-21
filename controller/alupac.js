@@ -31,8 +31,7 @@ function addContactForm(objParam) {
                 <b>Email:</b> ${objParam.uemail}, <br />
                 <b>Location:</b> ${objParam.Location}, <br />
                 <b>Company:</b> ${objParam.companyname}, <br />
-                <b>Commment:</b> ${objParam.comment}, <br />
-                 `
+                <b>Commment:</b> ${objParam.comment}, <br />`
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
